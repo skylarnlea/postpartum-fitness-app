@@ -1,468 +1,731 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Heart, Calendar, Apple, Dumbbell, Target, CheckCircle, Plus, Star, Baby } from 'lucide-react';
+import { ChevronRight, Heart, Calendar, Apple, Dumbbell, Target, CheckCircle, Plus, Star, Baby, X } from 'lucide-react';
 
 const PostpartumFitnessApp = () => {
-  const [activeTab, setActiveTab] = useState('home');
-  const [currentWeek, setCurrentWeek] = useState(1);
-  const [completedWorkouts, setCompletedWorkouts] = useState(new Set());
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [activeTab, setActiveTab] = useState('workouts');
+  const [completedWorkouts, setCompletedWorkouts] = useState([]);
+  const [completedNutrition, setCompletedNutrition] = useState([]);
+  const [completedSupplements, setCompletedSupplements] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState(null);
+  const [exerciseData, setExerciseData] = useState({});
 
-  const workoutPlan = {
-    "1-2": {
-      title: "Foundation & Activation",
-      description: "Building the foundation with gentle activation exercises",
-      days: [
+  // Data structures
+  const workoutPlan = [
+    {
+      week: "Week 1-2: Foundation",
+      color: "from-rose-100 to-pink-100",
+      workouts: [
         {
-          name: "Lower Body: Glute + Hamstring Focus",
-          exercises: ["Smith Machine Glute-Focused Squats", "Romanian Deadlifts", "Cable Kickbacks", "Step-ups (low height)", "Stability Ball Hamstring Curls"],
-          duration: "45-50 min"
+          day: "Day 1: Core Activation",
+          exercises: [
+            "Deep Breathing (5 minutes)",
+            "Pelvic Tilts (10 reps)",
+            "Modified Cat-Cow (10 reps)",
+            "Wall Sits (3 x 15 seconds)",
+            "Gentle Stretching (10 minutes)"
+          ]
         },
         {
-          name: "Upper Body: Toning + Core",
-          exercises: ["Lat Pulldown or Assisted Pull-ups", "Dumbbell Shoulder Press", "Cable Rows", "Bicep Curls + Tricep Kickbacks", "Plank + Bird-Dogs"],
-          duration: "40-45 min"
+          day: "Day 2: Gentle Movement",
+          exercises: [
+            "Walking (15-20 minutes)",
+            "Arm Circles (10 each direction)",
+            "Shoulder Blade Squeezes (10 reps)",
+            "Seated Spinal Twists (5 each side)",
+            "Relaxation (5 minutes)"
+          ]
         },
         {
-          name: "Lower Body: Glute Volume",
-          exercises: ["Hip Thrusts", "Sumo Deadlifts", "Reverse Lunges", "Leg Press (feet wide/high)", "Cable Side Kicks"],
-          duration: "45-50 min"
-        },
-        {
-          name: "Active Recovery or Glute/Ab Burn",
-          exercises: ["Glute Bridge Pulses", "Wall Sit with Band", "Abductions", "Leg Raises", "Russian Twists"],
-          duration: "30-35 min",
-          optional: true
+          day: "Day 3: Rest or Light Stretching",
+          exercises: [
+            "Gentle Yoga Flow (15 minutes)",
+            "Neck Stretches (5 minutes)",
+            "Deep Breathing Exercises"
+          ]
         }
       ]
     },
-    "3-4": {
-      title: "Volume & Control",
-      description: "Increasing volume while maintaining perfect form",
-      days: [
+    {
+      week: "Week 3-4: Building Strength",
+      color: "from-purple-100 to-indigo-100",
+      workouts: [
         {
-          name: "Lower Body: Glute + Hamstring Focus",
-          exercises: ["Smith Machine Glute-Focused Squats", "Romanian Deadlifts", "Cable Kickbacks", "Step-ups (medium height)", "Stability Ball Hamstring Curls"],
-          duration: "50-55 min"
+          day: "Day 1: Core & Stability",
+          exercises: [
+            "Modified Plank (3 x 20 seconds)",
+            "Dead Bug (3 x 8 each side)",
+            "Bird Dog (3 x 8 each side)",
+            "Glute Bridges (3 x 12)",
+            "Standing Marches (3 x 10 each leg)"
+          ]
         },
         {
-          name: "Upper Body: Toning + Core",
-          exercises: ["Lat Pulldown or Assisted Pull-ups", "Dumbbell Shoulder Press", "Cable Rows", "Bicep Curls + Tricep Kickbacks", "Plank + Bird-Dogs"],
-          duration: "45-50 min"
+          day: "Day 2: Cardio & Mobility",
+          exercises: [
+            "Brisk Walking (25 minutes)",
+            "Arm Swings (15 each direction)",
+            "Hip Circles (10 each direction)",
+            "Calf Raises (3 x 15)",
+            "Cool Down Stretches (10 minutes)"
+          ]
         },
         {
-          name: "Lower Body: Glute Volume",
-          exercises: ["Hip Thrusts", "Sumo Deadlifts", "Reverse Lunges", "Leg Press (feet wide/high)", "Cable Side Kicks"],
-          duration: "50-55 min"
-        },
-        {
-          name: "Active Recovery or Glute/Ab Burn",
-          exercises: ["Glute Bridge Pulses", "Wall Sit with Band", "Abductions", "Leg Raises", "Russian Twists"],
-          duration: "35-40 min",
-          optional: true
+          day: "Day 3: Full Body Gentle",
+          exercises: [
+            "Bodyweight Squats (3 x 10)",
+            "Wall Push-ups (3 x 8)",
+            "Standing Side Bends (10 each side)",
+            "Heel-to-Toe Walk (2 minutes)",
+            "Relaxation Poses (10 minutes)"
+          ]
         }
       ]
     },
-    "5-6": {
-      title: "Strength Progression",
-      description: "Building strength with progressive overload",
-      days: [
+    {
+      week: "Week 5-6: Progressive Training",
+      color: "from-teal-100 to-cyan-100",
+      workouts: [
         {
-          name: "Lower Body: Glute + Hamstring Focus",
-          exercises: ["Smith Machine Glute-Focused Squats", "Romanian Deadlifts", "Cable Kickbacks", "Step-ups (higher height)", "Stability Ball Hamstring Curls"],
-          duration: "55-60 min"
+          day: "Day 1: Strength Focus",
+          exercises: [
+            "Squats (3 x 12-15)",
+            "Modified Push-ups (3 x 8-10)",
+            "Lunges (3 x 8 each leg)",
+            "Plank Hold (3 x 30 seconds)",
+            "Russian Twists (3 x 15)"
+          ]
         },
         {
-          name: "Upper Body: Toning + Core",
-          exercises: ["Lat Pulldown or Pull-ups", "Dumbbell Shoulder Press", "Cable Rows", "Bicep Curls + Tricep Kickbacks", "Advanced Plank Variations"],
-          duration: "50-55 min"
+          day: "Day 2: Cardio Interval",
+          exercises: [
+            "Walking Intervals (30 minutes)",
+            "Step-ups (3 x 10 each leg)",
+            "Jumping Jacks (3 x 15)",
+            "Mountain Climbers (3 x 10)",
+            "Stretching Routine (15 minutes)"
+          ]
         },
         {
-          name: "Lower Body: Glute Volume",
-          exercises: ["Heavy Hip Thrusts", "Sumo Deadlifts", "Walking Lunges", "Leg Press (feet wide/high)", "Cable Side Kicks"],
-          duration: "55-60 min"
-        },
-        {
-          name: "Active Recovery or Glute/Ab Burn",
-          exercises: ["Glute Bridge Pulses", "Wall Sit with Band", "Abductions", "Leg Raises", "Russian Twists"],
-          duration: "40-45 min",
-          optional: true
-        }
-      ]
-    },
-    "7-8": {
-      title: "Conditioning & Muscle Growth",
-      description: "Peak conditioning with muscle growth focus",
-      days: [
-        {
-          name: "Lower Body: Glute + Hamstring Focus",
-          exercises: ["Smith Machine Glute-Focused Squats", "Romanian Deadlifts", "Cable Kickbacks", "Box Step-ups", "Stability Ball Hamstring Curls"],
-          duration: "60-65 min"
-        },
-        {
-          name: "Upper Body: Toning + Core",
-          exercises: ["Pull-ups", "Dumbbell Shoulder Press", "Cable Rows", "Superset Bicep/Tricep", "Core Circuit"],
-          duration: "55-60 min"
-        },
-        {
-          name: "Lower Body: Glute Volume",
-          exercises: ["Heavy Hip Thrusts", "Sumo Deadlifts", "Bulgarian Split Squats", "Leg Press (feet wide/high)", "Cable Side Kicks"],
-          duration: "60-65 min"
-        },
-        {
-          name: "Active Recovery or Glute/Ab Burn",
-          exercises: ["Advanced Glute Circuit", "Wall Sit with Band", "Abductions", "Advanced Core", "Russian Twists"],
-          duration: "45-50 min",
-          optional: true
+          day: "Day 3: Functional Movement",
+          exercises: [
+            "Deadlifts (bodyweight, 3 x 10)",
+            "Push-up to T (3 x 6 each side)",
+            "Single-leg Balance (3 x 30 seconds each)",
+            "Bear Crawl (3 x 30 seconds)",
+            "Yoga Flow (15 minutes)"
+          ]
         }
       ]
     }
-  };
-
-  const supplements = [
-    { name: "Protein Powder", dose: "20-25g/serving", benefit: "Muscle recovery & growth", icon: "💪" },
-    { name: "Creatine", dose: "3-5g daily", benefit: "Supports muscle growth", icon: "⚡" },
-    { name: "Collagen", dose: "Daily", benefit: "Joint & ligament health", icon: "🦴" },
-    { name: "Magnesium Glycinate", dose: "Daily", benefit: "Sleep & recovery", icon: "😴" },
-    { name: "Omega-3", dose: "Daily", benefit: "Reduces inflammation", icon: "🐟" },
-    { name: "Vitamin D3", dose: "Daily", benefit: "Essential postpartum", icon: "☀️" },
-    { name: "Multivitamin", dose: "Daily", benefit: "Complete nutrients", icon: "🌈" }
   ];
 
-  const mealPlan = {
-    breakfast: ["2 eggs + 2 egg whites + sautéed spinach + sourdough", "Protein coffee or shake"],
-    snack1: ["Greek yogurt + berries + chia seeds"],
-    lunch: ["Grilled salmon or chicken", "Quinoa or sweet potato", "Mixed greens with olive oil & lemon"],
-    snack2: ["Rice cakes + almond butter", "Protein shake if needed"],
-    dinner: ["Ground turkey or tofu stir-fry", "Veggies (broccoli, zucchini, carrots)", "Brown rice or cauliflower rice"],
-    evening: ["Cottage cheese or protein mug cake (optional)"]
-  };
+  const nutritionPlan = [
+    {
+      category: "Morning Boost",
+      icon: "☀️",
+      color: "from-amber-50 to-yellow-50",
+      items: [
+        "Warm lemon water upon waking",
+        "Protein-rich breakfast within 1 hour",
+        "Include complex carbohydrates",
+        "Add healthy fats (avocado, nuts)"
+      ]
+    },
+    {
+      category: "Hydration Goals",
+      icon: "💧",
+      color: "from-blue-50 to-cyan-50",
+      items: [
+        "Aim for 8-10 glasses of water daily",
+        "Herbal teas count toward fluid intake",
+        "Coconut water for natural electrolytes",
+        "Monitor urine color for hydration status"
+      ]
+    },
+    {
+      category: "Energy Snacks",
+      icon: "🥜",
+      color: "from-green-50 to-emerald-50",
+      items: [
+        "Greek yogurt with berries",
+        "Apple slices with almond butter",
+        "Hummus with veggie sticks",
+        "Trail mix with nuts and seeds"
+      ]
+    },
+    {
+      category: "Recovery Meals",
+      icon: "🍽️",
+      color: "from-orange-50 to-pink-50",
+      items: [
+        "Lean protein with each meal",
+        "Anti-inflammatory foods (turmeric, ginger)",
+        "Iron-rich foods (spinach, lean meats)",
+        "Omega-3 sources (salmon, walnuts)"
+      ]
+    }
+  ];
 
-  const macros = {
-    protein: "100-120g/day",
-    carbs: "120-180g/day", 
-    fats: "60-70g/day"
-  };
+  const supplementGuide = [
+    {
+      supplement: "Prenatal Vitamin",
+      timing: "Continue for 3-6 months postpartum",
+      benefits: "Supports nutrient needs during recovery and breastfeeding",
+      dosage: "As directed by healthcare provider",
+      color: "from-pink-50 to-rose-50",
+      icon: "💊"
+    },
+    {
+      supplement: "Vitamin D3",
+      timing: "Daily with meal",
+      benefits: "Bone health, immune support, mood regulation",
+      dosage: "1000-2000 IU (consult doctor)",
+      color: "from-yellow-50 to-amber-50",
+      icon: "☀️"
+    },
+    {
+      supplement: "Omega-3 (DHA/EPA)",
+      timing: "With meals to reduce fishy taste",
+      benefits: "Brain health, reduces inflammation, supports mood",
+      dosage: "500-1000mg combined DHA/EPA",
+      color: "from-blue-50 to-indigo-50",
+      icon: "🐟"
+    },
+    {
+      supplement: "Probiotics",
+      timing: "Morning on empty stomach",
+      benefits: "Digestive health, immune support, may help with mood",
+      dosage: "10-50 billion CFU multi-strain",
+      color: "from-green-50 to-teal-50",
+      icon: "🦠"
+    },
+    {
+      supplement: "Iron (if deficient)",
+      timing: "Between meals with vitamin C",
+      benefits: "Energy levels, prevents anemia",
+      dosage: "Only if blood work shows deficiency",
+      color: "from-red-50 to-pink-50",
+      icon: "🩸"
+    },
+    {
+      supplement: "Magnesium",
+      timing: "Evening before bed",
+      benefits: "Muscle recovery, sleep quality, stress management",
+      dosage: "200-400mg magnesium glycinate",
+      color: "from-purple-50 to-violet-50",
+      icon: "🌙"
+    }
+  ];
 
-  const getWeekPhase = (week) => {
-    if (week <= 2) return "1-2";
-    if (week <= 4) return "3-4";
-    if (week <= 6) return "5-6";
-    return "7-8";
-  };
+  // Initialize exercise data structure
+  useEffect(() => {
+    const initData = {};
+    workoutPlan.forEach(week => {
+      week.workouts.forEach(workout => {
+        workout.exercises.forEach(exercise => {
+          const key = `${week.week}-${workout.day}-${exercise}`;
+          if (!exerciseData[key]) {
+            initData[key] = {
+              sets: [],
+              completed: false
+            };
+          }
+        });
+      });
+    });
+    if (Object.keys(initData).length > 0) {
+      setExerciseData(prev => ({ ...prev, ...initData }));
+    }
+  }, []);
 
-  const completeWorkout = (dayIndex) => {
-    const workoutId = `${currentWeek}-${dayIndex}`;
-    setCompletedWorkouts(prev => new Set([...prev, workoutId]));
-    setIsAnimating(true);
-    setTimeout(() => setIsAnimating(false), 600);
-  };
-
-  const TabButton = ({ id, icon: Icon, label, active, onClick }) => (
-    <button
-      onClick={onClick}
-      className={`flex flex-col items-center py-2 px-4 rounded-2xl transition-all duration-300 transform ${
-        active 
-          ? 'bg-gradient-to-r from-pink-200 to-purple-200 text-purple-700 scale-105 shadow-lg' 
-          : 'text-gray-500 hover:text-purple-600 hover:scale-105'
-      }`}
-    >
-      <Icon size={20} className={`mb-1 ${active ? 'animate-bounce' : ''}`} />
-      <span className="text-xs font-medium">{label}</span>
-    </button>
-  );
-
-  const HomeTab = () => {
-    const phase = getWeekPhase(currentWeek);
-    const currentPlan = workoutPlan[phase];
-    
-    return (
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 rounded-3xl p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800">Week {currentWeek}</h2>
-              <p className="text-purple-600 font-medium">{currentPlan.title}</p>
-            </div>
-            <div className="bg-white rounded-full p-3 shadow-md">
-              <Baby className="text-pink-500" size={24} />
-            </div>
-          </div>
-          <p className="text-gray-600 text-sm leading-relaxed">{currentPlan.description}</p>
-          
-          <div className="flex justify-between mt-4 pt-4 border-t border-white/50">
-            <button
-              onClick={() => setCurrentWeek(Math.max(1, currentWeek - 1))}
-              disabled={currentWeek === 1}
-              className="bg-white/80 px-4 py-2 rounded-xl text-purple-600 font-medium disabled:opacity-50 hover:bg-white transition-all"
-            >
-              ← Previous
-            </button>
-            <button
-              onClick={() => setCurrentWeek(Math.min(8, currentWeek + 1))}
-              disabled={currentWeek === 8}
-              className="bg-white/80 px-4 py-2 rounded-xl text-purple-600 font-medium disabled:opacity-50 hover:bg-white transition-all"
-            >
-              Next →
-            </button>
-          </div>
-        </div>
-
-        {/* Workout Days */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-            <Dumbbell className="mr-2 text-purple-600" size={20} />
-            This Week's Workouts
-          </h3>
-          
-          {currentPlan.days.map((day, index) => {
-            const workoutId = `${currentWeek}-${index}`;
-            const isCompleted = completedWorkouts.has(workoutId);
-            
-            return (
-              <div key={index} className={`bg-white rounded-2xl p-4 shadow-md border-2 transition-all duration-300 ${
-                isCompleted ? 'border-green-300 bg-green-50' : 'border-gray-100 hover:border-purple-200'
-              }`}>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-800 flex items-center">
-                      Day {index + 1}: {day.name}
-                      {day.optional && <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Optional</span>}
-                    </h4>
-                    <p className="text-sm text-gray-500">{day.duration}</p>
-                  </div>
-                  <button
-                    onClick={() => completeWorkout(index)}
-                    className={`p-2 rounded-full transition-all duration-300 ${
-                      isCompleted 
-                        ? 'bg-green-500 text-white scale-110' 
-                        : 'bg-gray-100 text-gray-400 hover:bg-purple-100 hover:text-purple-600'
-                    } ${isAnimating ? 'animate-pulse' : ''}`}
-                  >
-                    <CheckCircle size={20} />
-                  </button>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-2">
-                  {day.exercises.map((exercise, exerciseIndex) => (
-                    <div key={exerciseIndex} className="flex items-center py-2 px-3 bg-gray-50 rounded-xl">
-                      <div className="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                        <span className="text-xs font-medium text-purple-600">{exerciseIndex + 1}</span>
-                      </div>
-                      <span className="text-sm text-gray-700 flex-1">{exercise}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+  // Toggle functions
+  const toggleWorkoutCompletion = (id) => {
+    setCompletedWorkouts(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
     );
   };
 
-  const NutritionTab = () => (
-    <div className="space-y-6">
-      {/* Macros */}
-      <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-3xl p-6 shadow-lg">
-        <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-          <Target className="mr-2 text-green-600" size={24} />
-          Daily Macro Goals
-        </h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-md font-bold text-red-500">{macros.protein}</div>
-            <div className="text-sm text-gray-600 font-medium">Protein</div>
-          </div>
-          <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-md font-bold text-blue-500">{macros.carbs}</div>
-            <div className="text-sm text-gray-600 font-medium">Carbs</div>
-          </div>
-          <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-md font-bold text-yellow-500">{macros.fats}</div>
-            <div className="text-sm text-gray-600 font-medium">Fats</div>
-          </div>
-        </div>
+  const toggleNutritionCompletion = (id) => {
+    setCompletedNutrition(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  const toggleSupplementCompletion = (id) => {
+    setCompletedSupplements(prev => 
+      prev.includes(id) 
+        ? prev.filter(item => item !== id)
+        : [...prev, id]
+    );
+  };
+
+  // Add set to exercise
+  const addSet = (exerciseKey, weight = '', reps = '') => {
+    setExerciseData(prev => ({
+      ...prev,
+      [exerciseKey]: {
+        ...prev[exerciseKey],
+        sets: [...(prev[exerciseKey]?.sets || []), { weight, reps, id: Date.now() }]
+      }
+    }));
+  };
+
+  // Update set
+  const updateSet = (exerciseKey, setId, field, value) => {
+    setExerciseData(prev => ({
+      ...prev,
+      [exerciseKey]: {
+        ...prev[exerciseKey],
+        sets: prev[exerciseKey].sets.map(set => 
+          set.id === setId ? { ...set, [field]: value } : set
+        )
+      }
+    }));
+  };
+
+  // Remove set
+  const removeSet = (exerciseKey, setId) => {
+    setExerciseData(prev => ({
+      ...prev,
+      [exerciseKey]: {
+        ...prev[exerciseKey],
+        sets: prev[exerciseKey].sets.filter(set => set.id !== setId)
+      }
+    }));
+  };
+
+  // Mark exercise as completed
+  const completeExercise = (exerciseKey) => {
+    setExerciseData(prev => ({
+      ...prev,
+      [exerciseKey]: {
+        ...prev[exerciseKey],
+        completed: true
+      }
+    }));
+    setSelectedExercise(null);
+  };
+
+  const renderWorkouts = () => (
+    <div className="space-y-4 pb-20">
+      <div className="text-center mb-6 px-4">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Fitness Journey</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Gentle, progressive workouts designed for postpartum recovery</p>
       </div>
 
-      {/* Meal Plan */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-          <Apple className="mr-2 text-red-500" size={20} />
-          Sample Meal Plan
-        </h3>
-        
-        <div className="space-y-4">
-          {Object.entries(mealPlan).map(([mealType, items]) => (
-            <div key={mealType} className="border-l-4 border-purple-300 pl-4">
-              <h4 className="font-semibold text-gray-800 capitalize text-sm mb-2">
-                {mealType === 'snack1' ? 'Morning Snack' : 
-                 mealType === 'snack2' ? 'Afternoon Snack' : 
-                 mealType === 'evening' ? 'Evening (Optional)' : mealType}
-              </h4>
-              {items.map((item, index) => (
-                <div key={index} className="text-sm text-gray-600 mb-1 flex items-center">
-                  <div className="w-2 h-2 bg-purple-300 rounded-full mr-2"></div>
-                  {item}
+      <div className="mx-4 bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-2xl border border-pink-100 shadow-sm">
+        <div className="flex items-center space-x-3 mb-2">
+          <div className="bg-pink-100 p-2 rounded-full">
+            <Heart className="h-4 w-4 text-pink-600" />
+          </div>
+          <h3 className="font-semibold text-gray-800 text-sm">Remember</h3>
+        </div>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Listen to your body, start slowly, and consult your healthcare provider before beginning any exercise program.
+        </p>
+      </div>
+
+      <div className="space-y-4 px-4">
+        {workoutPlan.map((week, weekIndex) => (
+          <div key={week.week} className={`bg-gradient-to-r ${week.color} rounded-2xl p-4 shadow-sm border border-white`}>
+            <h3 className="font-bold text-gray-800 mb-3 text-lg">{week.week}</h3>
+            <div className="space-y-3">
+              {week.workouts.map((workout, workoutIndex) => (
+                <div key={workout.day} className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+                  <h4 className="font-semibold text-gray-700 mb-3 text-sm">{workout.day}</h4>
+                  <div className="space-y-2">
+                    {workout.exercises.map((exercise, exerciseIndex) => {
+                      const exerciseKey = `${week.week}-${workout.day}-${exercise}`;
+                      const isCompleted = exerciseData[exerciseKey]?.completed;
+                      const setsCount = exerciseData[exerciseKey]?.sets?.length || 0;
+                      
+                      return (
+                        <button 
+                          key={exercise}
+                          onClick={() => setSelectedExercise(exerciseKey)}
+                          className={`w-full p-4 rounded-xl border transition-all ${
+                            isCompleted 
+                              ? 'bg-green-50 border-green-200 shadow-sm' 
+                              : 'bg-white border-gray-200 hover:bg-pink-50 shadow-sm'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className={`text-sm font-medium text-left ${isCompleted ? 'text-green-800' : 'text-gray-700'}`}>
+                              {exercise}
+                            </span>
+                            <div className="flex items-center space-x-2">
+                              {setsCount > 0 && (
+                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                                  {setsCount} sets
+                                </span>
+                              )}
+                              {isCompleted ? (
+                                <CheckCircle className="h-5 w-5 text-green-600" />
+                              ) : (
+                                <ChevronRight className="h-4 w-4 text-gray-400" />
+                              )}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  const SupplementsTab = () => (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-r from-orange-100 to-pink-100 rounded-3xl p-6 shadow-lg">
-        <h2 className="text-xl font-bold text-gray-800 mb-2 flex items-center">
-          <Star className="mr-2 text-orange-500" size={24} />
-          Recommended Supplements
-        </h2>
-        <p className="text-gray-600 text-sm">Safe & effective for postpartum recovery</p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4">
-        {supplements.map((supplement, index) => (
-          <div key={index} className="bg-white rounded-2xl p-4 shadow-md border border-gray-100 hover:border-purple-200 transition-all">
-            <div className="flex items-start space-x-4">
-              <div className="text-3xl">{supplement.icon}</div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-gray-800">{supplement.name}</h3>
-                <p className="text-purple-600 font-medium text-sm">{supplement.dose}</p>
-                <p className="text-gray-600 text-sm mt-1">{supplement.benefit}</p>
-              </div>
             </div>
           </div>
         ))}
       </div>
+    </div>
+  );
 
-      <div className="bg-blue-50 rounded-2xl p-4 border border-blue-200">
-        <p className="text-blue-800 text-sm">
-          <strong>Note:</strong> Always consult with your healthcare provider before starting any new supplements, especially while breastfeeding.
+  const renderNutrition = () => (
+    <div className="space-y-4 pb-20">
+      <div className="text-center mb-6 px-4">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Nourish Your Recovery</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Nutrition guidelines to support your healing and energy</p>
+      </div>
+
+      <div className="mx-4 bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-2xl border border-green-100 shadow-sm">
+        <div className="flex items-center space-x-3 mb-2">
+          <div className="bg-green-100 p-2 rounded-full">
+            <Apple className="h-4 w-4 text-green-600" />
+          </div>
+          <h3 className="font-semibold text-gray-800 text-sm">Focus Areas</h3>
+        </div>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Prioritize nutrient-dense foods, stay hydrated, and maintain steady energy levels throughout the day.
         </p>
+      </div>
+
+      <div className="space-y-4 px-4">
+        {nutritionPlan.map((category, categoryIndex) => (
+          <div key={category.category} className={`bg-gradient-to-r ${category.color} rounded-2xl p-4 shadow-sm border border-white`}>
+            <div className="flex items-center space-x-3 mb-3">
+              <span className="text-2xl">{category.icon}</span>
+              <h3 className="font-bold text-gray-800 text-lg">{category.category}</h3>
+            </div>
+            <div className="space-y-2">
+              {category.items.map((item, itemIndex) => (
+                <div 
+                  key={item}
+                  className="bg-white bg-opacity-80 rounded-xl p-3 border border-white"
+                >
+                  <button
+                    onClick={() => toggleNutritionCompletion(`${categoryIndex}-${itemIndex}`)}
+                    className="flex items-center space-x-3 w-full"
+                  >
+                    <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                      completedNutrition.includes(`${categoryIndex}-${itemIndex}`)
+                        ? 'bg-green-500 border-green-500'
+                        : 'border-gray-300 bg-white'
+                    }`}>
+                      {completedNutrition.includes(`${categoryIndex}-${itemIndex}`) && (
+                        <CheckCircle className="h-4 w-4 text-white" />
+                      )}
+                    </div>
+                    <span className={`text-sm text-left ${
+                      completedNutrition.includes(`${categoryIndex}-${itemIndex}`)
+                        ? 'line-through text-gray-500'
+                        : 'text-gray-700'
+                    }`}>
+                      {item}
+                    </span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 
-  const ProgressTab = () => {
-    const totalWorkouts = Object.values(workoutPlan).reduce((acc, phase) => acc + phase.days.length, 0);
-    const weekCompletedWorkouts = Array.from(completedWorkouts).filter(id => id.startsWith(`${currentWeek}-`)).length;
-    const totalCompletedWorkouts = completedWorkouts.size;
-    
-    return (
-      <div className="space-y-6">
-        <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-3xl p-6 shadow-lg">
-          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-            <Heart className="mr-2 text-pink-500" size={24} />
-            Your Progress
-          </h2>
-          
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="bg-white/80 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold text-purple-600">{currentWeek}</div>
-              <div className="text-sm text-gray-600">Current Week</div>
+  const renderSupplements = () => (
+    <div className="space-y-4 pb-20">
+      <div className="text-center mb-6 px-4">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Supplement Support</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Evidence-based supplements to consider for postpartum wellness</p>
+      </div>
+
+      <div className="mx-4 bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-100 shadow-sm">
+        <div className="flex items-center space-x-3 mb-2">
+          <div className="bg-amber-100 p-2 rounded-full">
+            <Target className="h-4 w-4 text-amber-600" />
+          </div>
+          <h3 className="font-semibold text-gray-800 text-sm">Important Note</h3>
+        </div>
+        <p className="text-sm text-gray-600 leading-relaxed">
+          Always consult your healthcare provider before starting any new supplements, especially while breastfeeding.
+        </p>
+      </div>
+
+      <div className="space-y-4 px-4">
+        {supplementGuide.map((supplement, index) => (
+          <div key={supplement.supplement} className={`bg-gradient-to-r ${supplement.color} rounded-2xl p-4 shadow-sm border border-white`}>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-2xl">{supplement.icon}</span>
+                  <h3 className="font-bold text-gray-800 text-lg">{supplement.supplement}</h3>
+                </div>
+                <div className="bg-white bg-opacity-80 rounded-xl p-3 border border-white mb-3">
+                  <p className="text-sm text-gray-700 mb-2 leading-relaxed">{supplement.benefits}</p>
+                  <div className="space-y-1">
+                    <p className="text-xs text-gray-600">
+                      <span className="font-semibold">Timing:</span> {supplement.timing}
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      <span className="font-semibold">Dosage:</span> {supplement.dosage}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="bg-white/80 rounded-2xl p-4 text-center">
-              <div className="text-3xl font-bold text-green-600">{totalCompletedWorkouts}</div>
-              <div className="text-sm text-gray-600">Workouts Done</div>
+            <button
+              onClick={() => toggleSupplementCompletion(index)}
+              className={`w-full p-3 rounded-xl border-2 transition-all ${
+                completedSupplements.includes(index)
+                  ? 'bg-green-500 border-green-500 text-white'
+                  : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+              }`}
+            >
+              <div className="flex items-center justify-center space-x-2">
+                {completedSupplements.includes(index) ? (
+                  <>
+                    <CheckCircle className="h-5 w-5" />
+                    <span className="font-medium">Tracked</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-5 w-5" />
+                    <span className="font-medium">Track</span>
+                  </>
+                )}
+              </div>
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderProgress = () => (
+    <div className="space-y-4 pb-20">
+      <div className="text-center mb-6 px-4">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Your Progress</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Track your journey and celebrate every milestone</p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 px-4">
+        <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-4 shadow-sm border border-pink-100">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="bg-pink-100 p-3 rounded-full">
+              <Dumbbell className="h-6 w-6 text-pink-600" />
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800">Workouts</h3>
+              <p className="text-xs text-gray-600">Exercises completed</p>
             </div>
           </div>
+          <p className="text-3xl font-bold text-pink-600">{Object.values(exerciseData).filter(ex => ex.completed).length}</p>
+        </div>
 
-          <div className="bg-white/80 rounded-2xl p-4">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-medium text-gray-700">This Week</span>
-              <span className="text-sm text-gray-600">{weekCompletedWorkouts}/4</span>
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-4 shadow-sm border border-green-100">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="bg-green-100 p-3 rounded-full">
+              <Apple className="h-6 w-6 text-green-600" />
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
-              <div 
-                className="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500"
-                style={{ width: `${(weekCompletedWorkouts / 4) * 100}%` }}
-              ></div>
+            <div>
+              <h3 className="font-bold text-gray-800">Nutrition</h3>
+              <p className="text-xs text-gray-600">Goals achieved</p>
+            </div>
+          </div>
+          <p className="text-3xl font-bold text-green-600">{completedNutrition.length}</p>
+        </div>
+
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 shadow-sm border border-blue-100">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="bg-blue-100 p-3 rounded-full">
+              <Target className="h-6 w-6 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-800">Supplements</h3>
+              <p className="text-xs text-gray-600">Items tracked</p>
+            </div>
+          </div>
+          <p className="text-3xl font-bold text-blue-600">{completedSupplements.length}</p>
+        </div>
+      </div>
+
+      <div className="mx-4 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-100 shadow-sm">
+        <div className="flex items-center space-x-3 mb-4">
+          <div className="bg-purple-100 p-2 rounded-full">
+            <Star className="h-5 w-5 text-purple-600" />
+          </div>
+          <h3 className="font-bold text-gray-800">Daily Motivation</h3>
+        </div>
+        <div className="space-y-3">
+          <div className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+            <p className="text-sm text-gray-700 italic leading-relaxed">
+              "Your body grew and delivered a miracle. Be patient and kind to yourself as you heal and grow stronger."
+            </p>
+          </div>
+          <div className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+            <p className="text-sm text-gray-700 italic leading-relaxed">
+              "Every small step forward is progress. Celebrate your journey, not just the destination."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+      {/* iPhone-specific safe area and header */}
+      <div className="bg-white bg-opacity-95 shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        {/* iPhone notch safe area */}
+        <div className="h-11"></div>
+        <div className="px-4 pb-4">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-r from-pink-400 to-purple-500 p-2.5 rounded-2xl shadow-lg">
+              <Baby className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-gray-800">Postpartum Wellness</h1>
+              <p className="text-sm text-gray-600">Your journey to strength & vitality</p>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="bg-white rounded-3xl p-6 shadow-lg">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Weekly Overview</h3>
-          <div className="grid grid-cols-4 gap-2">
-            {[1,2,3,4,5,6,7,8].map(week => {
-              const weekWorkouts = Array.from(completedWorkouts).filter(id => id.startsWith(`${week}-`)).length;
+      {/* iPhone-optimized Navigation Tabs */}
+      <div className="bg-white bg-opacity-95 border-b border-gray-100 sticky top-16 z-40">
+        <div className="px-2">
+          <div className="flex justify-between">
+            {[
+              { id: 'workouts', label: 'Workouts', icon: Dumbbell, color: 'pink' },
+              { id: 'nutrition', label: 'Nutrition', icon: Apple, color: 'green' },
+              { id: 'supplements', label: 'Vitamins', icon: Target, color: 'blue' },
+              { id: 'progress', label: 'Progress', icon: Star, color: 'purple' }
+            ].map(tab => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
-                <div key={week} className={`p-3 rounded-xl text-center transition-all ${
-                  week === currentWeek 
-                    ? 'bg-purple-100 border-2 border-purple-300' 
-                    : 'bg-gray-50'
-                }`}>
-                  <div className="text-xs text-gray-600 mb-1">Week {week}</div>
-                  <div className="text-lg font-bold text-purple-600">{weekWorkouts}/4</div>
-                </div>
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex-1 flex flex-col items-center py-3 px-2 transition-all relative ${
+                    isActive
+                      ? 'text-pink-600 bg-pink-50'
+                      : 'text-gray-600'
+                  }`}
+                >
+                  <Icon className="h-5 w-5 mb-1" />
+                  <span className="text-xs font-medium">{tab.label}</span>
+                  {isActive && <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-pink-500 rounded-full"></div>}
+                </button>
               );
             })}
           </div>
         </div>
+      </div>
 
-        <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-2xl p-4">
-          <p className="text-gray-700 text-sm text-center">
-            🌟 <strong>Remember:</strong> Consistency over perfection! Listen to your body and celebrate every workout completed.
-          </p>
+      {/* Content with iPhone bottom safe area */}
+      <div className="pt-2">
+        {activeTab === 'workouts' && renderWorkouts()}
+        {activeTab === 'nutrition' && renderNutrition()}
+        {activeTab === 'supplements' && renderSupplements()}
+        {activeTab === 'progress' && renderProgress()}
+      </div>
+
+      {/* iPhone bottom safe area */}
+      <div className="h-8 bg-gradient-to-t from-white to-transparent"></div>
+
+      {/* Exercise Details Modal - iPhone optimized */}
+      {selectedExercise && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end justify-center z-50">
+          <div className="bg-white rounded-t-3xl w-full max-h-[85vh] overflow-hidden">
+            {/* Modal header */}
+            <div className="sticky top-0 bg-white bg-opacity-95 p-4 border-b border-gray-100">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-bold text-gray-800 pr-4 leading-tight">
+                  {selectedExercise.split('-').slice(2).join('-')}
+                </h3>
+                <button
+                  onClick={() => setSelectedExercise(null)}
+                  className="bg-gray-100 p-2 rounded-full"
+                >
+                  <X className="h-5 w-5 text-gray-600" />
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-4 overflow-y-auto">
+              {/* Current Sets */}
+              <div className="space-y-3 mb-4">
+                {exerciseData[selectedExercise]?.sets?.map((set, index) => (
+                  <div key={set.id} className="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm font-medium text-gray-600 w-12">
+                      Set {index + 1}
+                    </span>
+                    <input
+                      type="number"
+                      placeholder="Weight"
+                      value={set.weight}
+                      onChange={(e) => updateSet(selectedExercise, set.id, 'weight', e.target.value)}
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                    />
+                    <span className="text-xs text-gray-500">lbs</span>
+                    <input
+                      type="number"
+                      placeholder="Reps"
+                      value={set.reps}
+                      onChange={(e) => updateSet(selectedExercise, set.id, 'reps', e.target.value)}
+                      className="w-20 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                    />
+                    <span className="text-xs text-gray-500">reps</span>
+                    <button
+                      onClick={() => removeSet(selectedExercise, set.id)}
+                      className="text-red-500 hover:text-red-700 p-1"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Add Set Button */}
+              <button
+                onClick={() => addSet(selectedExercise)}
+                className="w-full mb-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center space-x-2"
+              >
+                <Plus className="h-4 w-4" />
+                <span>Add Set</span>
+              </button>
+
+              {/* Complete Exercise Button */}
+              <button
+                onClick={() => completeExercise(selectedExercise)}
+                disabled={!exerciseData[selectedExercise]?.sets?.length}
+                className={`w-full px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
+                  exerciseData[selectedExercise]?.sets?.length
+                    ? 'bg-green-500 text-white hover:bg-green-600'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                <CheckCircle className="h-4 w-4" />
+                <span>Complete Exercise</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    );
-  };
-
-  return (
-    <div className="max-w-sm mx-auto bg-gray-50 min-h-screen">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 px-6 pt-12 pb-6 rounded-b-3xl shadow-lg">
-        <h1 className="text-2xl font-bold text-gray-800 text-center">
-          Postpartum Fitness Journey
-        </h1>
-        <p className="text-center text-gray-600 text-sm mt-1">10 months postpartum • 3-4 days/week</p>
-      </div>
-
-      {/* Content */}
-      <div className="px-4 py-6 pb-24">
-        {activeTab === 'home' && <HomeTab />}
-        {activeTab === 'nutrition' && <NutritionTab />}
-        {activeTab === 'supplements' && <SupplementsTab />}
-        {activeTab === 'progress' && <ProgressTab />}
-      </div>
-
-      {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 max-w-sm w-full bg-white border-t border-gray-200 px-4 py-3 rounded-t-3xl shadow-2xl">
-        <div className="flex items-center justify-around">
-          <TabButton 
-            id="home" 
-            icon={Calendar} 
-            label="Workouts" 
-            active={activeTab === 'home'} 
-            onClick={() => setActiveTab('home')} 
-          />
-          <TabButton 
-            id="nutrition" 
-            icon={Apple} 
-            label="Nutrition" 
-            active={activeTab === 'nutrition'} 
-            onClick={() => setActiveTab('nutrition')} 
-          />
-          <TabButton 
-            id="supplements" 
-            icon={Plus} 
-            label="Supplements" 
-            active={activeTab === 'supplements'} 
-            onClick={() => setActiveTab('supplements')} 
-          />
-          <TabButton 
-            id="progress" 
-            icon={Heart} 
-            label="Progress" 
-            active={activeTab === 'progress'} 
-            onClick={() => setActiveTab('progress')} 
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };
