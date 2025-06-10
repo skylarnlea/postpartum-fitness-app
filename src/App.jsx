@@ -271,15 +271,15 @@ const PostpartumFitnessApp = () => {
         </h2>
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-red-500">{macros.protein}</div>
+            <div className="text-md font-bold text-red-500">{macros.protein}</div>
             <div className="text-sm text-gray-600 font-medium">Protein</div>
           </div>
           <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-blue-500">{macros.carbs}</div>
+            <div className="text-md font-bold text-blue-500">{macros.carbs}</div>
             <div className="text-sm text-gray-600 font-medium">Carbs</div>
           </div>
           <div className="bg-white/80 rounded-2xl p-4 text-center">
-            <div className="text-2xl font-bold text-yellow-500">{macros.fats}</div>
+            <div className="text-md font-bold text-yellow-500">{macros.fats}</div>
             <div className="text-sm text-gray-600 font-medium">Fats</div>
           </div>
         </div>
