@@ -13,7 +13,7 @@ const PostpartumFitnessApp = () => {
   const workoutPlan = [
     {
       week: "Week 1-2: Foundation",
-      color: "from-rose-100 to-pink-100",
+      color: "from-rose-200 to-pink-200",
       workouts: [
         {
           day: "Day 1: Core Activation",
@@ -47,7 +47,7 @@ const PostpartumFitnessApp = () => {
     },
     {
       week: "Week 3-4: Building Strength",
-      color: "from-purple-100 to-indigo-100",
+      color: "from-purple-200 to-indigo-200",
       workouts: [
         {
           day: "Day 1: Core & Stability",
@@ -83,7 +83,7 @@ const PostpartumFitnessApp = () => {
     },
     {
       week: "Week 5-6: Progressive Training",
-      color: "from-teal-100 to-cyan-100",
+      color: "from-teal-200 to-cyan-200",
       workouts: [
         {
           day: "Day 1: Strength Focus",
@@ -123,7 +123,7 @@ const PostpartumFitnessApp = () => {
     {
       category: "Morning Boost",
       icon: "☀️",
-      color: "from-amber-50 to-yellow-50",
+      color: "from-amber-100 to-yellow-100",
       items: [
         "Warm lemon water upon waking",
         "Protein-rich breakfast within 1 hour",
@@ -134,7 +134,7 @@ const PostpartumFitnessApp = () => {
     {
       category: "Hydration Goals",
       icon: "💧",
-      color: "from-blue-50 to-cyan-50",
+      color: "from-blue-100 to-cyan-100",
       items: [
         "Aim for 8-10 glasses of water daily",
         "Herbal teas count toward fluid intake",
@@ -145,7 +145,7 @@ const PostpartumFitnessApp = () => {
     {
       category: "Energy Snacks",
       icon: "🥜",
-      color: "from-green-50 to-emerald-50",
+      color: "from-green-100 to-emerald-100",
       items: [
         "Greek yogurt with berries",
         "Apple slices with almond butter",
@@ -156,7 +156,7 @@ const PostpartumFitnessApp = () => {
     {
       category: "Recovery Meals",
       icon: "🍽️",
-      color: "from-orange-50 to-pink-50",
+      color: "from-orange-100 to-pink-100",
       items: [
         "Lean protein with each meal",
         "Anti-inflammatory foods (turmeric, ginger)",
@@ -172,7 +172,7 @@ const PostpartumFitnessApp = () => {
       timing: "Continue for 3-6 months postpartum",
       benefits: "Supports nutrient needs during recovery and breastfeeding",
       dosage: "As directed by healthcare provider",
-      color: "from-pink-50 to-rose-50",
+      color: "from-pink-100 to-rose-100",
       icon: "💊"
     },
     {
@@ -180,7 +180,7 @@ const PostpartumFitnessApp = () => {
       timing: "Daily with meal",
       benefits: "Bone health, immune support, mood regulation",
       dosage: "1000-2000 IU (consult doctor)",
-      color: "from-yellow-50 to-amber-50",
+      color: "from-yellow-100 to-amber-100",
       icon: "☀️"
     },
     {
@@ -188,7 +188,7 @@ const PostpartumFitnessApp = () => {
       timing: "With meals to reduce fishy taste",
       benefits: "Brain health, reduces inflammation, supports mood",
       dosage: "500-1000mg combined DHA/EPA",
-      color: "from-blue-50 to-indigo-50",
+      color: "from-blue-100 to-indigo-100",
       icon: "🐟"
     },
     {
@@ -196,7 +196,7 @@ const PostpartumFitnessApp = () => {
       timing: "Morning on empty stomach",
       benefits: "Digestive health, immune support, may help with mood",
       dosage: "10-50 billion CFU multi-strain",
-      color: "from-green-50 to-teal-50",
+      color: "from-green-100 to-teal-100",
       icon: "🦠"
     },
     {
@@ -204,7 +204,7 @@ const PostpartumFitnessApp = () => {
       timing: "Between meals with vitamin C",
       benefits: "Energy levels, prevents anemia",
       dosage: "Only if blood work shows deficiency",
-      color: "from-red-50 to-pink-50",
+      color: "from-red-100 to-pink-100",
       icon: "🩸"
     },
     {
@@ -212,7 +212,7 @@ const PostpartumFitnessApp = () => {
       timing: "Evening before bed",
       benefits: "Muscle recovery, sleep quality, stress management",
       dosage: "200-400mg magnesium glycinate",
-      color: "from-purple-50 to-violet-50",
+      color: "from-purple-100 to-violet-100",
       icon: "🌙"
     }
   ];
@@ -522,7 +522,7 @@ const PostpartumFitnessApp = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-4 px-4">
-        <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-4 shadow-sm border border-pink-100">
+        <div className="bg-gradient-to-r from-pink-100 to-rose-100 rounded-2xl p-4 shadow-sm border border-pink-200">
           <div className="flex items-center space-x-3 mb-3">
             <div className="bg-pink-100 p-3 rounded-full">
               <Dumbbell className="h-6 w-6 text-pink-600" />
@@ -535,7 +535,7 @@ const PostpartumFitnessApp = () => {
           <p className="text-3xl font-bold text-pink-600">{Object.values(exerciseData).filter(ex => ex.completed).length}</p>
         </div>
 
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-4 shadow-sm border border-green-100">
+        <div className="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-4 shadow-sm border border-green-200">
           <div className="flex items-center space-x-3 mb-3">
             <div className="bg-green-100 p-3 rounded-full">
               <Apple className="h-6 w-6 text-green-600" />
@@ -548,7 +548,7 @@ const PostpartumFitnessApp = () => {
           <p className="text-3xl font-bold text-green-600">{completedNutrition.length}</p>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 shadow-sm border border-blue-100">
+        <div className="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl p-4 shadow-sm border border-blue-200">
           <div className="flex items-center space-x-3 mb-3">
             <div className="bg-blue-100 p-3 rounded-full">
               <Target className="h-6 w-6 text-blue-600" />
@@ -562,7 +562,7 @@ const PostpartumFitnessApp = () => {
         </div>
       </div>
 
-      <div className="mx-4 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-100 shadow-sm">
+      <div className="mx-4 bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-2xl border border-purple-200 shadow-sm">
         <div className="flex items-center space-x-3 mb-4">
           <div className="bg-purple-100 p-2 rounded-full">
             <Star className="h-5 w-5 text-purple-600" />
@@ -586,8 +586,8 @@ const PostpartumFitnessApp = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
-      {/* iPhone-specific safe area and header */}
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
+    {/* iPhone-specific safe area and header */}
       <div className="bg-white bg-opacity-95 shadow-sm border-b border-gray-100 sticky top-0 z-50">
         {/* iPhone notch safe area */}
         <div className="h-11"></div>
