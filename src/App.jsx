@@ -317,7 +317,7 @@ const PostpartumFitnessApp = () => {
         <p className="text-gray-600 text-sm leading-relaxed">Gentle, progressive workouts designed for postpartum recovery</p>
       </div>
 
-      <div className="mx-4 bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-2xl border border-pink-100 shadow-sm">
+      <div className="mx-4 bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-2xl border border-pink-200 shadow-sm">
         <div className="flex items-center space-x-3 mb-2">
           <div className="bg-pink-100 p-2 rounded-full">
             <Heart className="h-4 w-4 text-pink-600" />
@@ -390,7 +390,7 @@ const PostpartumFitnessApp = () => {
         <p className="text-gray-600 text-sm leading-relaxed">Nutrition guidelines to support your healing and energy</p>
       </div>
 
-      <div className="mx-4 bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-2xl border border-green-100 shadow-sm">
+      <div className="mx-4 bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-2xl border border-green-200 shadow-sm">
         <div className="flex items-center space-x-3 mb-2">
           <div className="bg-green-100 p-2 rounded-full">
             <Apple className="h-4 w-4 text-green-600" />
@@ -452,7 +452,7 @@ const PostpartumFitnessApp = () => {
         <p className="text-gray-600 text-sm leading-relaxed">Evidence-based supplements to consider for postpartum wellness</p>
       </div>
 
-      <div className="mx-4 bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-2xl border border-amber-100 shadow-sm">
+      <div className="mx-4 bg-gradient-to-r from-amber-100 to-orange-100 p-4 rounded-2xl border border-amber-200 shadow-sm">
         <div className="flex items-center space-x-3 mb-2">
           <div className="bg-amber-100 p-2 rounded-full">
             <Target className="h-4 w-4 text-amber-600" />
@@ -587,32 +587,32 @@ const PostpartumFitnessApp = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
-    {/* iPhone-specific safe area and header */}
-      <div className="bg-gradient-to-r from-cyan-100 to-teal-100 bg-opacity-95 shadow-lg border-b border-cyan-200 sticky top-0 z-50">
-      {/* iPhone notch safe area */}
+      {/* iPhone-specific safe area and header - VIBRANT GREEN */}
+      <div className="bg-gradient-to-r from-emerald-100 to-teal-100 bg-opacity-95 shadow-lg border-b border-emerald-200 sticky top-0 z-50">
+        {/* iPhone notch safe area */}
         <div className="h-11"></div>
-          <div className="px-4 pb-4">
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-r from-cyan-500 to-teal-500 p-2.5 rounded-2xl shadow-lg">
-                <Baby className="h-6 w-6 text-white" />
-              </div>
+        <div className="px-4 pb-4">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-2.5 rounded-2xl shadow-lg">
+              <Baby className="h-6 w-6 text-white" />
+            </div>
             <div>
-            <h1 className="text-xl font-bold text-cyan-800">Postpartum Wellness</h1>
-            <p className="text-sm text-cyan-600">Your journey to strength & vitality</p>
+              <h1 className="text-xl font-bold text-emerald-800">Postpartum Wellness</h1>
+              <p className="text-sm text-emerald-600">Your journey to strength & vitality</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-      {/* iPhone-optimized Navigation Tabs */}
-      <div className="bg-white bg-opacity-95 border-b border-gray-100 sticky top-16 z-40">
-        <div className="px-2">
-          <div className="flex justify-between">
+      {/* iPhone-optimized Navigation Tabs - VIBRANT PASTELS */}
+      <div className="bg-gradient-to-r from-pink-100 via-green-100 via-blue-100 to-purple-100 border-b border-gray-300 sticky top-16 z-40 shadow-sm">
+        <div className="px-2 py-1">
+          <div className="flex justify-between gap-1">
             {[
-              { id: 'workouts', label: 'Workouts', icon: Dumbbell, color: 'pink' },
-              { id: 'nutrition', label: 'Nutrition', icon: Apple, color: 'green' },
-              { id: 'supplements', label: 'Vitamins', icon: Target, color: 'blue' },
-              { id: 'progress', label: 'Progress', icon: Star, color: 'purple' }
+              { id: 'workouts', label: 'Workouts', icon: Dumbbell, colors: { bg: 'bg-pink-200', text: 'text-pink-800', active: 'bg-pink-300', indicator: 'bg-pink-600', shadow: 'shadow-pink-200' } },
+              { id: 'nutrition', label: 'Nutrition', icon: Apple, colors: { bg: 'bg-green-200', text: 'text-green-800', active: 'bg-green-300', indicator: 'bg-green-600', shadow: 'shadow-green-200' } },
+              { id: 'supplements', label: 'Vitamins', icon: Target, colors: { bg: 'bg-blue-200', text: 'text-blue-800', active: 'bg-blue-300', indicator: 'bg-blue-600', shadow: 'shadow-blue-200' } },
+              { id: 'progress', label: 'Progress', icon: Star, colors: { bg: 'bg-purple-200', text: 'text-purple-800', active: 'bg-purple-300', indicator: 'bg-purple-600', shadow: 'shadow-purple-200' } }
             ].map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -620,15 +620,15 @@ const PostpartumFitnessApp = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex flex-col items-center py-3 px-2 transition-all relative ${
+                  className={`flex-1 flex flex-col items-center py-3 px-2 rounded-2xl transition-all relative ${
                     isActive
-                      ? 'text-pink-600 bg-pink-50'
-                      : 'text-gray-600'
+                      ? `${tab.colors.text} ${tab.colors.active} shadow-lg ${tab.colors.shadow}`
+                      : `text-gray-700 ${tab.colors.bg} hover:${tab.colors.active} shadow-md`
                   }`}
                 >
                   <Icon className="h-5 w-5 mb-1" />
-                  <span className="text-xs font-medium">{tab.label}</span>
-                  {isActive && <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-pink-500 rounded-full"></div>}
+                  <span className="text-xs font-bold">{tab.label}</span>
+                  {isActive && <div className={`absolute bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-1.5 ${tab.colors.indicator} rounded-full`}></div>}
                 </button>
               );
             })}
