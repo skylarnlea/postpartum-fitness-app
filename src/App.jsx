@@ -588,17 +588,17 @@ const PostpartumFitnessApp = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
     {/* iPhone-specific safe area and header */}
-      <div className="bg-gradient-to-r from-teal-100 to-cyan-100 bg-opacity-95 shadow-lg border-b border-teal-200 sticky top-0 z-50">
+      <div className="bg-gradient-to-r from-cyan-100 to-teal-100 bg-opacity-95 shadow-lg border-b border-cyan-200 sticky top-0 z-50">
       {/* iPhone notch safe area */}
         <div className="h-11"></div>
           <div className="px-4 pb-4">
             <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-r from-teal-400 to-cyan-500 p-2.5 rounded-2xl shadow-lg">
+              <div className="bg-gradient-to-r from-cyan-500 to-teal-500 p-2.5 rounded-2xl shadow-lg">
                 <Baby className="h-6 w-6 text-white" />
               </div>
             <div>
-          <h1 className="text-xl font-bold text-teal-800">Postpartum Wellness</h1>
-          <p className="text-sm text-teal-600">Your journey to strength & vitality</p>
+            <h1 className="text-xl font-bold text-cyan-800">Postpartum Wellness</h1>
+            <p className="text-sm text-cyan-600">Your journey to strength & vitality</p>
           </div>
         </div>
       </div>
