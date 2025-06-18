@@ -265,7 +265,7 @@ const PostpartumFitnessApp = () => {
       items: [
         "Warm lemon water upon waking",
         "Protein-rich breakfast within 1 hour",
-        "Include complex carbohydrates",
+        "Include complex carbohydrates (sweet potatoes, oats)",
         "Add healthy fats (avocado, nuts)"
       ]
     },
@@ -296,7 +296,7 @@ const PostpartumFitnessApp = () => {
       icon: "🍽️",
       color: "from-orange-100 to-pink-100",
       items: [
-        "Lean protein with each meal",
+        "Lean protein with each meal (chicken breast, turkey, lean beef",
         "Anti-inflammatory foods (turmeric, ginger)",
         "Iron-rich foods (spinach, lean meats)",
         "Omega-3 sources (salmon, walnuts)"
