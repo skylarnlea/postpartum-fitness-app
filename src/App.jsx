@@ -759,7 +759,7 @@ const PostpartumFitnessApp = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
       {/* iPhone-specific safe area and header - VIBRANT GREEN */}
-      <div className="bg-gradient-to-r from-emerald-100 to-teal-100 bg-opacity-95 shadow-lg border-b border-emerald-200 top-0 z-50">
+      <div className="bg-gradient-to-r from-emerald-100 to-teal-100 bg-opacity-95 shadow-lg border-b border-emerald-200 sticky top-0 z-50">
         {/* iPhone notch safe area */}
         <div className="h-11"></div>
         <div className="px-4 pb-4">
