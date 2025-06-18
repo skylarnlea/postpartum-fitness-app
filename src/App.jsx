@@ -306,14 +306,6 @@ const PostpartumFitnessApp = () => {
 
   const supplementGuide = [
     {
-      supplement: "Prenatal Vitamin",
-      timing: "Continue for 3-6 months postpartum",
-      benefits: "Supports nutrient needs during recovery and breastfeeding",
-      dosage: "As directed by healthcare provider",
-      color: "from-pink-100 to-rose-100",
-      icon: "💊"
-    },
-    {
       supplement: "Vitamin D3",
       timing: "Daily with meal",
       benefits: "Bone health, immune support, mood regulation",
@@ -336,14 +328,6 @@ const PostpartumFitnessApp = () => {
       dosage: "10-50 billion CFU multi-strain",
       color: "from-green-100 to-teal-100",
       icon: "🦠"
-    },
-    {
-      supplement: "Iron (if deficient)",
-      timing: "Between meals with vitamin C",
-      benefits: "Energy levels, prevents anemia",
-      dosage: "Only if blood work shows deficiency",
-      color: "from-red-100 to-pink-100",
-      icon: "🩸"
     },
     {
       supplement: "Magnesium",
