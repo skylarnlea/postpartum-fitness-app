@@ -776,7 +776,7 @@ const PostpartumFitnessApp = () => {
       </div>
 
       {/* iPhone-optimized Navigation Tabs - VIBRANT PASTELS */}
-      <div className="bg-gradient-to-r from-pink-100 via-green-100 via-blue-100 to-purple-100 border-b border-gray-300 sticky top-16 z-40 shadow-sm">
+      <div className="bg-gradient-to-r from-pink-100 via-green-100 via-blue-100 to-purple-100 border-b border-gray-300 sticky top-[108px] z-40 shadow-sm">
         <div className="px-2 py-1">
           <div className="flex justify-between gap-1">
             {[
