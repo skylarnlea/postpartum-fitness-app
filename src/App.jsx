@@ -8,6 +8,7 @@ const PostpartumFitnessApp = () => {
   const [completedSupplements, setCompletedSupplements] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [exerciseData, setExerciseData] = useState({});
+  const [lastResetDate, setLastResetDate] = useState(new Date().toDateString());
 
   // Data structures
   const workoutPlan = [
@@ -360,6 +361,16 @@ const PostpartumFitnessApp = () => {
     }
   }, []);
 
+  // Check if it's a new day and reset nutrition & supplement goals
+  useEffect(() => {
+    const today = new Date().toDateString();
+    if (lastResetDate !== today) {
+      setCompletedNutrition([]); // Reset nutrition goals
+      setCompletedSupplements([]); // Reset supplement goals
+      setLastResetDate(today);
+    }
+  }, [lastResetDate]);
+
   // Toggle functions
   const toggleWorkoutCompletion = (id) => {
     setCompletedWorkouts(prev => 
@@ -546,11 +557,16 @@ const PostpartumFitnessApp = () => {
       </div>
 
       <div className="mx-4 bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-2xl border border-green-200 shadow-sm">
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="bg-green-100 p-2 rounded-full">
-            <Apple className="h-4 w-4 text-green-600" />
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center space-x-3">
+            <div className="bg-green-100 p-2 rounded-full">
+              <Apple className="h-4 w-4 text-green-600" />
+            </div>
+            <h3 className="font-semibold text-gray-800 text-sm">Today's Nutrition Goals</h3>
           </div>
-          <h3 className="font-semibold text-gray-800 text-sm">Focus Areas</h3>
+          <span className="text-xs text-green-600 font-medium bg-green-50 px-2 py-1 rounded-full">
+            Resets daily
+          </span>
         </div>
         <p className="text-sm text-gray-600 leading-relaxed">
           Prioritize nutrient-dense foods, stay hydrated, and maintain steady energy levels throughout the day.
@@ -608,11 +624,16 @@ const PostpartumFitnessApp = () => {
       </div>
 
       <div className="mx-4 bg-gradient-to-r from-amber-100 to-orange-100 p-4 rounded-2xl border border-amber-200 shadow-sm">
+        <div className="flex items-center justify-between mb-2">
         <div className="flex items-center space-x-3 mb-2">
           <div className="bg-amber-100 p-2 rounded-full">
             <Target className="h-4 w-4 text-amber-600" />
           </div>
-          <h3 className="font-semibold text-gray-800 text-sm">Important Note</h3>
+          <h3 className="font-semibold text-gray-800 text-sm">Today's Supplements</h3>
+        </div>
+        <span className="text-xs text-amber-600 font-medium bg-amber-50 px-2 py-1 rounded-full">
+          Resets daily
+        </span>
         </div>
         <p className="text-sm text-gray-600 leading-relaxed">
           Always consult your healthcare provider before starting any new supplements, especially while breastfeeding.
