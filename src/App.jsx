@@ -258,49 +258,82 @@ const PostpartumFitnessApp = () => {
     }
   ];
 
+  const dailyGoals = [
+    "80 oz of water daily",
+    "110-140g protein",
+    "Workout of the day"
+  ];
+
   const nutritionPlan = [
     {
-      category: "Morning Boost",
-      icon: "☀️",
+      category: "Breakfast",
+      icon: "🌅",
       color: "from-amber-100 to-yellow-100",
-      items: [
-        "Warm lemon water upon waking",
-        "Protein-rich breakfast within 1 hour",
-        "Include complex carbohydrates (sweet potatoes, oats)",
-        "Add healthy fats (avocado, nuts)"
+      options: [
+        {
+          title: "Option 1",
+          items: [
+            "2 whole eggs + 3 egg whites scrambled in olive oil",
+            "1 slice whole grain toast",
+            "½ avocado",
+            "1 cup berries"
+          ]
+        },
+        {
+          title: "Option 2",
+          items: [
+            "Protein smoothie (1 scoop whey, 1 cup unsweetened almond milk, 1 tbsp peanut butter, ½ banana, handful spinach)",
+            "1 slice whole grain toast or ½ cup oatmeal"
+          ]
+        }
       ]
     },
     {
-      category: "Hydration Goals",
-      icon: "💧",
+      category: "Lunch",
+      icon: "🌞",
       color: "from-blue-100 to-cyan-100",
-      items: [
-        "Aim for 8-10 glasses of water daily",
-        "Herbal teas count toward fluid intake",
-        "Coconut water for natural electrolytes",
-        "Monitor urine color for hydration status"
+      options: [
+        {
+          title: "Option 1",
+          items: [
+            "5 oz lean ground beef (90/10)",
+            "1 cup roasted sweet potato",
+            "1 cup broccoli or asparagus",
+            "1 tsp olive oil drizzle"
+          ]
+        },
+        {
+          title: "Option 2",
+          items: [
+            "5 oz salmon",
+            "1 cup quinoa or brown rice",
+            "1 cup zucchini or green beans",
+            "1 tsp olive oil or grass-fed butter"
+          ]
+        }
       ]
     },
     {
-      category: "Energy Snacks",
-      icon: "🥜",
-      color: "from-green-100 to-emerald-100",
-      items: [
-        "Greek yogurt with berries",
-        "Apple slices with almond butter",
-        "Hummus with veggie sticks",
-        "Trail mix with nuts and seeds"
-      ]
-    },
-    {
-      category: "Recovery Meals",
-      icon: "🍽️",
-      color: "from-orange-100 to-pink-100",
-      items: [
-        "Lean protein with each meal (chicken breast, turkey, lean beef)",
-        "Anti-inflammatory foods (turmeric, ginger)",
-        "Iron-rich foods (spinach, lean meats)",
-        "Omega-3 sources (salmon, walnuts)"
+      category: "Dinner",
+      icon: "🌙",
+      color: "from-purple-100 to-indigo-100",
+      options: [
+        {
+          title: "Option 1",
+          items: [
+            "5 oz chicken breast or thighs (skinless)",
+            "1 small baked potato or 1 cup roasted carrots",
+            "1–2 cups mixed greens with light vinaigrette"
+          ]
+        },
+        {
+          title: "Option 2",
+          items: [
+            "5 oz sirloin steak or lean ground beef",
+            "1 cup cauliflower mash or spaghetti squash",
+            "1–2 cups spinach or kale sautéed in olive oil"
+          ]
+        }
       ]
     }
   ];
@@ -552,12 +585,12 @@ const PostpartumFitnessApp = () => {
   const renderNutrition = () => (
     <div className="space-y-4 pb-20">
       <div className="text-center mb-6 px-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Nourish Your Recovery</h2>
-        <p className="text-gray-600 text-sm leading-relaxed">Nutrition guidelines to support your healing and energy</p>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Nutrition Plan</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Support muscle growth, keep body fat in check, high protein, nutrient-rich</p>
       </div>
 
       <div className="mx-4 bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-2xl border border-green-200 shadow-sm">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-3">
             <div className="bg-green-100 p-2 rounded-full">
               <Apple className="h-4 w-4 text-green-600" />
@@ -568,45 +601,51 @@ const PostpartumFitnessApp = () => {
             Resets daily
           </span>
         </div>
-        <p className="text-sm text-gray-600 leading-relaxed">
-          Prioritize nutrient-dense foods, stay hydrated, and maintain steady energy levels throughout the day.
-        </p>
+        <div className="space-y-2">
+          {dailyGoals.map((goal, index) => (
+            <div key={goal} className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+              <button
+                onClick={() => toggleNutritionCompletion(`daily-goal-${index}`)}
+                className="flex items-center space-x-3 w-full"
+              >
+                <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                  completedNutrition.includes(`daily-goal-${index}`)
+                    ? 'bg-green-500 border-green-500'
+                    : 'border-gray-300 bg-white'
+                }`}>
+                  {completedNutrition.includes(`daily-goal-${index}`) && (
+                    <CheckCircle className="h-4 w-4 text-white" />
+                  )}
+                </div>
+                <span className={`text-sm text-left font-medium ${
+                  completedNutrition.includes(`daily-goal-${index}`)
+                    ? 'line-through text-gray-500'
+                    : 'text-gray-700'
+                }`}>
+                  {goal}
+                </span>
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="space-y-4 px-4">
-        {nutritionPlan.map((category, categoryIndex) => (
-          <div key={category.category} className={`bg-gradient-to-r ${category.color} rounded-2xl p-4 shadow-sm border border-white`}>
+        {nutritionPlan.map((meal, mealIndex) => (
+          <div key={meal.category} className={`bg-gradient-to-r ${meal.color} rounded-2xl p-4 shadow-sm border border-white`}>
             <div className="flex items-center space-x-3 mb-3">
-              <span className="text-2xl">{category.icon}</span>
-              <h3 className="font-bold text-gray-800 text-lg">{category.category}</h3>
+              <span className="text-2xl">{meal.icon}</span>
+              <h3 className="font-bold text-gray-800 text-lg">{meal.category}</h3>
             </div>
-            <div className="space-y-2">
-              {category.items.map((item, itemIndex) => (
-                <div 
-                  key={item}
-                  className="bg-white bg-opacity-80 rounded-xl p-3 border border-white"
-                >
-                  <button
-                    onClick={() => toggleNutritionCompletion(`${categoryIndex}-${itemIndex}`)}
-                    className="flex items-center space-x-3 w-full"
-                  >
-                    <div className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      completedNutrition.includes(`${categoryIndex}-${itemIndex}`)
-                        ? 'bg-green-500 border-green-500'
-                        : 'border-gray-300 bg-white'
-                    }`}>
-                      {completedNutrition.includes(`${categoryIndex}-${itemIndex}`) && (
-                        <CheckCircle className="h-4 w-4 text-white" />
-                      )}
-                    </div>
-                    <span className={`text-sm text-left ${
-                      completedNutrition.includes(`${categoryIndex}-${itemIndex}`)
-                        ? 'line-through text-gray-500'
-                        : 'text-gray-700'
-                    }`}>
-                      {item}
-                    </span>
-                  </button>
+            <div className="space-y-3">
+              {meal.options.map((option, optionIndex) => (
+                <div key={option.title} className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+                  <h4 className="font-semibold text-gray-700 text-sm mb-2">{option.title}</h4>
+                  <div className="space-y-1">
+                    {option.items.map((item, itemIndex) => (
+                      <p key={itemIndex} className="text-xs text-gray-600 leading-relaxed">• {item}</p>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
