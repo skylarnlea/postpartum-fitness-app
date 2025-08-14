@@ -13,247 +13,62 @@ const PostpartumFitnessApp = () => {
   // Data structures
   const workoutPlan = [
     {
-      week: "Week 1-2: Foundation & Activation",
-      subtitle: "Focus on mobility, joint stability, glute activation, and building baseline strength",
+      day: "Day 1 – Lower Body (Knee-Friendly)",
+      focus: "Glute & Posterior Chain Focus",
       color: "from-rose-200 to-pink-200",
-      warmup: [
-        "Glute bridges x15",
-        "Lateral band walks x10 each way", 
-        "Leg swings + arm circles",
-        "Hip flexor stretch"
-      ],
-      cooldown: [
-        "Pigeon pose",
-        "Quad + hamstring stretches", 
-        "Deep breathing (box breath x3 rounds)"
-      ],
-      workouts: [
-        {
-          day: "Day 1: Glutes + Hamstrings",
-          focus: "Strength & Stability",
-          exercises: [
-            "Glute bridges or hip thrusts (machine/barbell) -- 3x12",
-            "RDLs (dumbbell or barbell) -- 3x10",
-            "Cable kickbacks -- 3x15/leg",
-            "Step-ups (low box, bodyweight or DBs) -- 2x10/leg",
-            "Stability ball hamstring curls -- 3x12"
-          ]
-        },
-        {
-          day: "Day 2: Upper Body + Core",
-          focus: "Toning",
-          exercises: [
-            "Lat pulldown or band-assisted pull-ups -- 3x10",
-            "Seated shoulder press -- 3x10",
-            "Single-arm cable rows -- 3x12",
-            "Dumbbell curls + tricep kickbacks -- 2x12 superset",
-            "Bird-dogs and side planks -- 2x30s/side"
-          ]
-        },
-        {
-          day: "Day 3: Glutes + Quads",
-          focus: "Controlled Volume",
-          exercises: [
-            "Hip thrusts -- 4x10",
-            "Sumo goblet squats (feet wide) -- 3x10",
-            "Reverse lunges (optional low DBs) -- 2x10/leg",
-            "Side-lying leg lifts -- 3x20",
-            "Resistance band abductions -- 3x20 pulses"
-          ]
-        },
-        {
-          day: "Day 4: Active Recovery",
-          focus: "Optional",
-          exercises: [
-            "Yoga or mat mobility session (20-30 min)",
-            "Incline treadmill walk or cycling (15-20 min)",
-            "Foam rolling & breathwork",
-            "Light glute activation circuit (bodyweight)"
-          ]
-        }
+      exercises: [
+        "Hip Thrusts – 4×10–12",
+        "Romanian Deadlifts – 4×10–12",
+        "Cable Kickbacks – 3×12–15/leg",
+        "Side-Lying Hip Abductions – 3×15–20/leg",
+        "Glute Bridges (bodyweight burnout) – 2×20"
       ]
     },
     {
-      week: "Week 3-4: Volume & Endurance", 
-      subtitle: "Increase reps and add more time-under-tension for muscular endurance and stamina",
+      day: "Day 2 – Upper Body (Arm + Shoulder Focus)",
+      focus: "Arm & Shoulder Development",
       color: "from-purple-200 to-indigo-200",
-      warmup: [
-        "Glute bridges x15",
-        "Lateral band walks x10 each way",
-        "Leg swings + arm circles", 
-        "Hip flexor stretch"
-      ],
-      cooldown: [
-        "Pigeon pose",
-        "Quad + hamstring stretches",
-        "Deep breathing (box breath x3 rounds)"
-      ],
-      workouts: [
-        {
-          day: "Day 1: Glutes + Hamstrings",
-          focus: "Strength & Stability",
-          exercises: [
-            "Glute bridges or hip thrusts (machine/barbell) -- 3x15",
-            "RDLs (dumbbell or barbell) -- 3x12", 
-            "Cable kickbacks -- 3x18/leg",
-            "Step-ups (low box, bodyweight or DBs) -- 3x10/leg",
-            "Stability ball hamstring curls -- 3x15"
-          ]
-        },
-        {
-          day: "Day 2: Upper Body + Core",
-          focus: "Toning",
-          exercises: [
-            "Lat pulldown or band-assisted pull-ups -- 3x12",
-            "Seated shoulder press -- 3x12",
-            "Single-arm cable rows -- 3x15",
-            "Dumbbell curls + tricep kickbacks -- 3x12 superset",
-            "Bird-dogs and side planks -- 3x30s/side"
-          ]
-        },
-        {
-          day: "Day 3: Glutes + Quads", 
-          focus: "Controlled Volume",
-          exercises: [
-            "Hip thrusts -- 4x12",
-            "Sumo goblet squats (feet wide) -- 3x12",
-            "Reverse lunges (optional low DBs) -- 3x10/leg",
-            "Side-lying leg lifts -- 3x25",
-            "Resistance band abductions -- 3x25 pulses"
-          ]
-        },
-        {
-          day: "Day 4: Active Recovery",
-          focus: "Optional", 
-          exercises: [
-            "Yoga or mat mobility session (25-35 min)",
-            "Incline treadmill walk or cycling (20-25 min)",
-            "Foam rolling & breathwork",
-            "Light glute activation circuit (bodyweight)"
-          ]
-        }
+      exercises: [
+        "Seated Dumbbell Shoulder Press – 4×10–12",
+        "Dumbbell Lateral Raises – 3×12–15",
+        "Dumbbell Bicep Curls – 3×10–12",
+        "Overhead Dumbbell Tricep Extensions – 3×10–12",
+        "Face Pulls or Band Pull-Aparts – 3×12–15"
       ]
     },
     {
-      week: "Week 5-6: Strength Building",
-      subtitle: "Progressively increase resistance and emphasize compound lifts",
+      day: "Day 3 – Full Body + Arms",
+      focus: "Full Body Compound Movement",
       color: "from-teal-200 to-cyan-200",
-      warmup: [
-        "Glute bridges x15",
-        "Lateral band walks x10 each way",
-        "Leg swings + arm circles",
-        "Hip flexor stretch"
-      ],
-      cooldown: [
-        "Pigeon pose", 
-        "Quad + hamstring stretches",
-        "Deep breathing (box breath x3 rounds)"
-      ],
-      workouts: [
-        {
-          day: "Day 1: Glutes + Hamstrings",
-          focus: "Strength & Stability",
-          exercises: [
-            "Glute bridges or hip thrusts (machine/barbell) -- 4x10",
-            "RDLs (dumbbell or barbell) -- 4x8",
-            "Cable kickbacks -- 3x15/leg",
-            "Step-ups (higher box, add DBs) -- 3x8/leg",
-            "Stability ball hamstring curls -- 4x10"
-          ]
-        },
-        {
-          day: "Day 2: Upper Body + Core",
-          focus: "Toning", 
-          exercises: [
-            "Lat pulldown or band-assisted pull-ups -- 4x8",
-            "Seated shoulder press -- 4x8",
-            "Single-arm cable rows -- 4x10",
-            "Dumbbell curls + tricep kickbacks -- 3x10 superset",
-            "Bird-dogs and side planks -- 3x45s/side"
-          ]
-        },
-        {
-          day: "Day 3: Glutes + Quads",
-          focus: "Controlled Volume",
-          exercises: [
-            "Hip thrusts -- 4x8",
-            "Sumo goblet squats (heavier weight) -- 4x8",
-            "Reverse lunges (add DBs) -- 3x8/leg", 
-            "Side-lying leg lifts -- 4x20",
-            "Resistance band abductions -- 4x20 pulses"
-          ]
-        },
-        {
-          day: "Day 4: Active Recovery",
-          focus: "Optional",
-          exercises: [
-            "Yoga or mat mobility session (30-40 min)",
-            "Incline treadmill walk or cycling (25-30 min)",
-            "Foam rolling & breathwork",
-            "Light glute activation circuit (bodyweight)"
-          ]
-        }
+      exercises: [
+        "Bulgarian Split Squats (rear leg low or on pad) – 3×10–12/leg",
+        "Incline Dumbbell Bench Press – 3×8–10",
+        "Lat Pulldowns – 3×8–10",
+        "Dumbbell Hammer Curls – 3×10–12",
+        "Cable Rope Tricep Pushdowns – 3×12–15"
       ]
     },
     {
-      week: "Week 7-8: Power + Burnout",
-      subtitle: "Introduce light power moves, finishers, and high-rep muscle engagement",
+      day: "Optional Day 4 – Lower Body (Glutes/Posterior Chain)",
+      focus: "Additional Glute & Posterior Focus",
       color: "from-amber-200 to-orange-200",
-      warmup: [
-        "Glute bridges x15",
-        "Lateral band walks x10 each way", 
-        "Leg swings + arm circles",
-        "Hip flexor stretch"
-      ],
-      cooldown: [
-        "Pigeon pose",
-        "Quad + hamstring stretches",
-        "Deep breathing (box breath x3 rounds)"
-      ],
-      workouts: [
-        {
-          day: "Day 1: Glutes + Hamstrings",
-          focus: "Power & Strength",
-          exercises: [
-            "Hip thrusts (heavier weight) -- 4x6-8",
-            "RDLs (heavier weight) -- 4x6",
-            "Cable kickbacks -- 4x12/leg",
-            "Step-ups (explosive) -- 3x6/leg",
-            "Stability ball hamstring curls -- 4x8 + burnout set"
-          ]
-        },
-        {
-          day: "Day 2: Upper Body + Core",
-          focus: "Power Toning",
-          exercises: [
-            "Pull-ups or lat pulldown -- 4x6",
-            "Shoulder press (heavier) -- 4x6", 
-            "Single-arm cable rows -- 4x8",
-            "Dumbbell curls + tricep kickbacks -- 4x8 superset",
-            "Plank variations -- 3x60s"
-          ]
-        },
-        {
-          day: "Day 3: Glutes + Quads",
-          focus: "Power Volume",
-          exercises: [
-            "Jump squats (light) -- 4x8",
-            "Hip thrusts -- 4x6",
-            "Sumo goblet squats -- 4x6",
-            "Reverse lunges (explosive) -- 3x6/leg",
-            "Glute burnout circuit -- 2 rounds"
-          ]
-        },
-        {
-          day: "Day 4: Active Recovery",
-          focus: "Optional",
-          exercises: [
-            "Power yoga session (35-45 min)",
-            "HIIT cardio (20-25 min)",
-            "Deep tissue foam rolling", 
-            "Meditation & breathwork (10 min)"
-          ]
-        }
+      exercises: [
+        "Banded Hip Thrusts – 4×12–15",
+        "Step-Ups (low step for knee comfort) – 3×10/leg",
+        "Dumbbell Deadlifts – 4×8–10",
+        "Clamshells – 3×15–20/leg",
+        "Plank (hold 30–60s × 3)"
+      ]
+    },
+    {
+      day: "Light Cardio / Abs Days (Optional)",
+      focus: "Active Recovery & Core",
+      color: "from-green-200 to-emerald-200",
+      exercises: [
+        "Cardio: Incline treadmill walk, elliptical, or cycling — 20–30 min, easy pace",
+        "Dead Bugs – 2–3 rounds",
+        "Bird Dogs – 2–3 rounds",
+        "Side Plank Holds – 2–3 rounds"
       ]
     }
   ];
@@ -376,17 +191,15 @@ const PostpartumFitnessApp = () => {
   // Initialize exercise data structure
   useEffect(() => {
     const initData = {};
-    workoutPlan.forEach(week => {
-      week.workouts.forEach(workout => {
-        workout.exercises.forEach(exercise => {
-          const key = `${week.week}-${workout.day}-${exercise}`;
-          if (!exerciseData[key]) {
-            initData[key] = {
-              sets: [],
-              completed: false
-            };
-          }
-        });
+    workoutPlan.forEach(day => {
+      day.exercises.forEach(exercise => {
+        const key = `${day.day}-${exercise}`;
+        if (!exerciseData[key]) {
+          initData[key] = {
+            sets: [],
+            completed: false
+          };
+        }
       });
     });
     if (Object.keys(initData).length > 0) {
@@ -479,8 +292,8 @@ const PostpartumFitnessApp = () => {
   const renderWorkouts = () => (
     <div className="space-y-4 pb-20">
       <div className="text-center mb-6 px-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">8-Week Strength Program</h2>
-        <p className="text-gray-600 text-sm leading-relaxed">Goal: Strong, Athletic Physique | Thick Lower Body + Toned Upper Body | Knee-Friendly</p>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Workout Plan (3–4 Days/Week)</h2>
+        <p className="text-gray-600 text-sm leading-relaxed">Knee-friendly exercises focused on building strength and muscle tone</p>
       </div>
 
       <div className="mx-4 bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-2xl border border-pink-200 shadow-sm">
@@ -491,89 +304,55 @@ const PostpartumFitnessApp = () => {
           <h3 className="font-semibold text-gray-800 text-sm">Remember</h3>
         </div>
         <p className="text-sm text-gray-600 leading-relaxed">
-          Progress gradually through each phase. Always warm up before and cool down after each session.
+          Always warm up before each session and listen to your body. Rest 1-2 days between workout days.
         </p>
       </div>
 
       <div className="space-y-4 px-4">
-        {workoutPlan.map((week, weekIndex) => (
-          <div key={week.week} className={`bg-gradient-to-r ${week.color} rounded-2xl p-4 shadow-sm border border-white`}>
+        {workoutPlan.map((day, dayIndex) => (
+          <div key={day.day} className={`bg-gradient-to-r ${day.color} rounded-2xl p-4 shadow-sm border border-white`}>
             <div className="mb-3">
-              <h3 className="font-bold text-gray-800 text-lg">{week.week}</h3>
-              <p className="text-sm text-gray-700 mt-1">{week.subtitle}</p>
+              <h3 className="font-bold text-gray-800 text-lg">{day.day}</h3>
+              <p className="text-sm text-gray-700 mt-1">{day.focus}</p>
             </div>
 
-            {/* Warm-up Section */}
-            <div className="bg-white bg-opacity-60 rounded-xl p-3 border border-white mb-3">
-              <h4 className="font-semibold text-gray-700 mb-2 text-sm flex items-center">
-                <span className="mr-2">🧘‍♀️</span>
-                Warm-Up (each day)
-              </h4>
-              <div className="space-y-1">
-                {week.warmup.map((item, index) => (
-                  <p key={index} className="text-xs text-gray-600">• {item}</p>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {week.workouts.map((workout, workoutIndex) => (
-                <div key={workout.day} className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
-                  <div className="mb-3">
-                    <h4 className="font-semibold text-gray-700 text-sm">{workout.day}</h4>
-                    <p className="text-xs text-gray-600">{workout.focus}</p>
-                  </div>
-                  <div className="space-y-2">
-                    {workout.exercises.map((exercise, exerciseIndex) => {
-                      const exerciseKey = `${week.week}-${workout.day}-${exercise}`;
-                      const isCompleted = exerciseData[exerciseKey]?.completed;
-                      const setsCount = exerciseData[exerciseKey]?.sets?.length || 0;
-                      
-                      return (
-                        <button 
-                          key={exercise}
-                          onClick={() => setSelectedExercise(exerciseKey)}
-                          className={`w-full p-4 rounded-xl border transition-all ${
-                            isCompleted 
-                              ? 'bg-green-50 border-green-200 shadow-sm' 
-                              : 'bg-white border-gray-200 hover:bg-pink-50 shadow-sm'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className={`text-sm font-medium text-left ${isCompleted ? 'text-green-800' : 'text-gray-700'}`}>
-                              {exercise}
+            <div className="bg-white bg-opacity-80 rounded-xl p-3 border border-white">
+              <div className="space-y-2">
+                {day.exercises.map((exercise, exerciseIndex) => {
+                  const exerciseKey = `${day.day}-${exercise}`;
+                  const isCompleted = exerciseData[exerciseKey]?.completed;
+                  const setsCount = exerciseData[exerciseKey]?.sets?.length || 0;
+                  
+                  return (
+                    <button 
+                      key={exercise}
+                      onClick={() => setSelectedExercise(exerciseKey)}
+                      className={`w-full p-4 rounded-xl border transition-all ${
+                        isCompleted 
+                          ? 'bg-green-50 border-green-200 shadow-sm' 
+                          : 'bg-white border-gray-200 hover:bg-pink-50 shadow-sm'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-sm font-medium text-left ${isCompleted ? 'text-green-800' : 'text-gray-700'}`}>
+                          {exercise}
+                        </span>
+                        <div className="flex items-center space-x-2">
+                          {setsCount > 0 && (
+                            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                              {setsCount} sets
                             </span>
-                            <div className="flex items-center space-x-2">
-                              {setsCount > 0 && (
-                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
-                                  {setsCount} sets
-                                </span>
-                              )}
-                              {isCompleted ? (
-                                <CheckCircle className="h-5 w-5 text-green-600" />
-                              ) : (
-                                <ChevronRight className="h-4 w-4 text-gray-400" />
-                              )}
-                            </div>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Cool-down Section */}
-            <div className="bg-white bg-opacity-60 rounded-xl p-3 border border-white mt-3">
-              <h4 className="font-semibold text-gray-700 mb-2 text-sm flex items-center">
-                <span className="mr-2">🧘‍♀️</span>
-                Cool-Down (each day)
-              </h4>
-              <div className="space-y-1">
-                {week.cooldown.map((item, index) => (
-                  <p key={index} className="text-xs text-gray-600">• {item}</p>
-                ))}
+                          )}
+                          {isCompleted ? (
+                            <CheckCircle className="h-5 w-5 text-green-600" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          )}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
